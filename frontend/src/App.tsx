@@ -1,35 +1,54 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import './App.css';
+import teamsData from './CollegeBasketballTeams.json'; // Import the JSON file
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+// make the heading
+function Heading() {
+  return <h1>March Madness</h1>;
 }
 
-export default App
+// get the team information that we need
+function Team({
+  school,
+  name,
+  city,
+  state,
+}: {
+  school: string;
+  name: string;
+  city: string;
+  state: string;
+}) {
+  return (
+    <>
+      {/* print out the information needed */}
+      <h2>School Name: {school}</h2>
+      <h3>Mascot Name: {name}</h3>
+      <h3>
+        Location: {city}, {state}
+      </h3>
+    </>
+  );
+}
+
+// loop through the teams
+function TeamList() {
+  return (
+    <>
+      {teamsData.teams.map((singleTeam, index) => (
+        <Team key={index} {...singleTeam} />
+      ))}
+    </>
+  );
+}
+
+// display the information
+function App() {
+  return (
+    <>
+      <Heading />
+      <TeamList />
+    </>
+  );
+}
+
+export default App;
